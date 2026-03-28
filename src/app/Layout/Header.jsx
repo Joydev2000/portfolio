@@ -9,9 +9,9 @@ const Header = () => {
     <nav className="fixed w-full top-0 z-50 glass-panel border-b-0 border-b-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <div className="flex-shrink-0 cursor-pointer">
+          <div className="shrink-0 cursor-pointer">
             <span className="font-display text-2xl font-bold text-white tracking-tight">
-              Dev<span className="text-[#58a6ff]">.Nexus</span>
+              Joy.<span className="text-[#58a6ff]">dev</span>
             </span>
           </div>
           

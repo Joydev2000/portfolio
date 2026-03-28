@@ -1,8 +1,3 @@
-// import React, { useState, useEffect, useRef } from 'react';
-
-// =====================================================================
-// GLOBAL CONFIG & API UTILITY
-// =====================================================================
 const apiKey = "AIzaSyBwhU1KPMROrK5pm9aQTpw3Fg5-OGiQ0w0"; // Insert your Gemini API key here
 
 const callGemini = async (prompt) => {

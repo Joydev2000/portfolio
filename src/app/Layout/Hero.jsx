@@ -30,7 +30,7 @@ const Hero = () => {
 
   // Typewriter Effect
   useEffect(() => {
-    const phrases = ["Digital Future", "Creative Web", "Next Gen UI", "Robust Systems"];
+    const phrases = ["Creative Web", "User Experience", "Perfect UI"];
     let phraseIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -81,7 +81,7 @@ const Hero = () => {
     setTerminalHistory(newHistory);
 
     const metaPrompt = `
-    You are a helpful AI assistant for a Full Stack Developer's portfolio. The developer's name is "Dev.Nexus".
+    You are a helpful AI assistant for a Full Stack Developer's portfolio. The developer's name is "Joydev".
     They know React, Next.js, Node.js, Python, and UI Design.
     
     User Input: "${userPrompt}"
@@ -146,19 +146,19 @@ const Hero = () => {
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                     </span>
-                    Available for new projects
+                   Open to new opportunities
                 </div>
-                <h1 className="text-5xl md:text-7xl font-display font-bold leading-tight text-white tracking-tight h-[160px] md:h-auto flex flex-col justify-center">
+                <h1 className="text-5xl md:text-7xl font-display font-bold leading-tight text-white tracking-tight h-[160px] mb-0 md:h-auto flex flex-col justify-center">
                     <span className="text-slate-400 text-3xl md:text-5xl mb-2">Building the</span>
                     <div className="flex items-center">
-                        <span className={`px-1 ${isTitleSelected ? 'bg-[#58a6ff] text-white' : 'text-gradient'} h-[100px]`}>
+                        <span className={`px-1 ${isTitleSelected ? 'text-gradient' : 'text-gradient'} h-[100px]`}>
                           {heroTitle}
                         </span>
                         <span className={`w-1 h-10 md:h-16 bg-[#58a6ff] ml-1 ${isBlinking ? 'animate-cursor-blink' : ''}`}></span>
                     </div>
                 </h1>
                 <p className="text-lg text-slate-400 max-w-lg leading-relaxed font-light">
-                    I'm a Full Stack Developer specializing in building exceptional digital experiences. I merge clean code with stunning, user-centric design.
+                   Passionate Frontend Developer experienced in HTML, CSS, JS, React, and WordPress. Dedicated to building smooth, user-centric web experiences and converting complex UI designs into optimized, responsive web pages.
                 </p>
                 <div className="flex flex-wrap gap-4 pt-2">
                     <a href="#portfolio" className="px-8 py-3.5 bg-white text-slate-900 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg shadow-white/10">
@@ -183,7 +183,7 @@ const Hero = () => {
                             <div className="w-3 h-3 rounded-full bg-[#ffbd2e] border border-[#dea123]"></div>
                             <div className="w-3 h-3 rounded-full bg-[#27c93f] border border-[#1aab29]"></div>
                           </div>
-                          <div className="flex-1 text-center text-xs text-[#8b949e] font-sans">Dev.Nexus — Visual Studio Code</div>
+                          <div className="flex-1 text-center text-xs text-[#8b949e] font-sans">Joydev — Visual Studio Code</div>
                           <div className="w-14"></div>
                     </div>
 
