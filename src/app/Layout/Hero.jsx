@@ -151,7 +151,7 @@ const Hero = () => {
                 <h1 className="text-5xl md:text-7xl font-display font-bold leading-tight text-white tracking-tight h-[160px] md:h-auto flex flex-col justify-center">
                     <span className="text-slate-400 text-3xl md:text-5xl mb-2">Building the</span>
                     <div className="flex items-center">
-                        <span className={`px-1 ${isTitleSelected ? 'bg-[#58a6ff] text-white' : 'text-gradient'}`}>
+                        <span className={`px-1 ${isTitleSelected ? 'bg-[#58a6ff] text-white' : 'text-gradient'} h-[100px]`}>
                           {heroTitle}
                         </span>
                         <span className={`w-1 h-10 md:h-16 bg-[#58a6ff] ml-1 ${isBlinking ? 'animate-cursor-blink' : ''}`}></span>
