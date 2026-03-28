@@ -1,9 +1,11 @@
+import { ScrollReveal, StaggerContainer, StaggerItem } from "../components/ScrollReveal";
+
 const About = () => {
   return (
     <section id="about" className="py-24 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-16 items-center">
-              <div className="lg:w-1/2 w-full relative group">
+          <StaggerContainer className="flex flex-col lg:flex-row gap-16 items-center">
+              <StaggerItem className="lg:w-1/2 w-full relative group">
                   <div className="absolute inset-0 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-3xl blur-2xl opacity-20 group-hover:opacity-30 transition-opacity duration-500"></div>
                   <div className="relative glass-card rounded-3xl p-8 border border-white/10 aspect-square flex flex-col justify-center items-center text-center overflow-hidden">
                       <div className="w-24 h-24 bg-blue-500/20 rounded-2xl flex items-center justify-center mb-6 text-blue-400 rotate-3 group-hover:rotate-6 transition-transform">
@@ -22,8 +24,8 @@ const About = () => {
                           </div>
                       </div>
                   </div>
-              </div>
-              <div className="lg:w-1/2 w-full">
+              </StaggerItem>
+              <StaggerItem className="lg:w-1/2 w-full">
                   <h2 className="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">About Me</h2>
                   <h3 className="text-4xl md:text-5xl font-display font-bold text-white mb-6 tracking-tight">Passionate about creating smooth user experiences.</h3>
                   <p className="text-lg text-slate-400 mb-6 leading-relaxed font-light">My journey started with graphic design and evolved into frontend development. I specialize in translating complex UI designs into optimized, responsive web pages using React and WordPress.</p>
@@ -37,8 +39,8 @@ const About = () => {
                           <div className="w-full bg-slate-800 rounded-full h-2"><div className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full" style={{ width: '88%' }}></div></div>
                       </div>
                   </div>
-              </div>
-          </div>
+              </StaggerItem>
+          </StaggerContainer>
       </div>
     </section>
   );

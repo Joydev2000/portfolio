@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import ParticleCanvas from "./ParticleCanvas.jsx";
 import callGemini from "../Api/Gemini.js";
-
+import { ScrollReveal, StaggerContainer, StaggerItem } from "../components/ScrollReveal";
 
 const Hero = () => {
   const [heroTitle, setHeroTitle] = useState("");
@@ -140,15 +140,15 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
             {/* Text Content */}
-            <div className="space-y-8 pointer-events-auto">
-                <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium">
+            <StaggerContainer className="space-y-8 pointer-events-auto">
+                <StaggerItem className="inline-flex items-center px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium">
                     <span className="relative flex h-2 w-2 mr-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                     </span>
                    Open to new opportunities
-                </div>
-                <h1 className="text-5xl md:text-7xl font-display font-bold leading-tight text-white tracking-tight h-[160px] mb-0 md:h-auto flex flex-col justify-center">
+                </StaggerItem>
+                <StaggerItem className="text-5xl md:text-7xl font-display font-bold leading-tight text-white tracking-tight h-[160px] mb-0 md:h-auto flex flex-col justify-center">
                     <span className="text-slate-400 text-3xl md:text-5xl mb-2">Building the</span>
                     <div className="flex items-center">
                         <span className={`px-1 ${isTitleSelected ? 'text-gradient' : 'text-gradient'} h-[100px]`}>
@@ -156,22 +156,22 @@ const Hero = () => {
                         </span>
                         <span className={`w-1 h-10 md:h-16 bg-[#58a6ff] ml-1 ${isBlinking ? 'animate-cursor-blink' : ''}`}></span>
                     </div>
-                </h1>
-                <p className="text-lg text-slate-400 max-w-lg leading-relaxed font-light">
+                </StaggerItem>
+                <StaggerItem className="text-lg text-slate-400 max-w-lg leading-relaxed font-light">
                    Passionate Frontend Developer experienced in HTML, CSS, JS, React, and WordPress. Dedicated to building smooth, user-centric web experiences and converting complex UI designs into optimized, responsive web pages.
-                </p>
-                <div className="flex flex-wrap gap-4 pt-2">
+                </StaggerItem>
+                <StaggerItem className="flex flex-wrap gap-4 pt-2">
                     <a href="#portfolio" className="px-8 py-3.5 bg-white text-slate-900 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg shadow-white/10">
                         View Work
                     </a>
                     <a href="#contact" className="px-8 py-3.5 glass-panel text-white rounded-full font-semibold hover:bg-white/5 transition-colors border border-white/10">
                         Contact Me
                     </a>
-                </div>
-            </div>
+                </StaggerItem>
+            </StaggerContainer>
 
             {/* Authentic VS Code Replica */}
-            <div className="relative w-full max-w-xl mx-auto lg:ml-auto animate-float pointer-events-auto">
+            <ScrollReveal className="relative w-full max-w-xl mx-auto lg:ml-auto animate-float pointer-events-auto" delay={0.3}>
                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-xl blur opacity-20"></div>
 
                 <div className="relative bg-[#0d1117] rounded-xl shadow-2xl border border-[#30363d] overflow-hidden flex flex-col font-mono text-sm h-[450px]">
@@ -258,7 +258,7 @@ const Hero = () => {
                     </div>
                 </div>
 
-            </div>
+            </ScrollReveal>
         </div>
         </div>
     </section>
@@ -268,3 +268,4 @@ const Hero = () => {
 
 
 export default Hero;
+// <

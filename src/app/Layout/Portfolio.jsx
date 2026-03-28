@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react";   
+import { ScrollReveal, StaggerContainer, StaggerItem } from "../components/ScrollReveal";
 
 const Portfolio = () => {
   const [spotlightProject, setSpotlightProject] = useState(null);
@@ -35,13 +36,13 @@ const Portfolio = () => {
 
   return (
     <section id="portfolio" className="py-24 bg-[#0b1120] relative overflow-hidden z-10 border-y border-white/5">
-      <div className="max-w-7xl mx-auto px-4 mb-16 text-center">
+      <ScrollReveal className="max-w-7xl mx-auto px-4 mb-16 text-center">
           <h2 className="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">Portfolio</h2>
           <h3 className="text-3xl md:text-4xl font-display font-bold text-white tracking-tight mb-6">Featured Projects</h3>
           <button onClick={generateAIProject} disabled={isBrainstorming} className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/30 rounded-full font-mono text-xs transition-colors shadow-lg shadow-blue-500/10 group">
               <i className={`fas ${isBrainstorming ? 'fa-spinner fa-spin' : 'fa-magic group-hover:animate-pulse'}`}></i> {isBrainstorming ? 'Brainstorming...' : '✨ Brainstorm Custom Concept'}
           </button>
-      </div>
+      </ScrollReveal>
 
       {spotlightProject && (
         <div className={`max-w-md mx-auto mb-12 transform transition-all duration-500 ${isBrainstorming ? 'scale-95 opacity-0' : 'scale-100 opacity-100'}`}>
