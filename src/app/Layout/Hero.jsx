@@ -136,7 +136,7 @@ const Hero = () => {
     <section id="hero" className="min-h-screen flex items-center pt-20 relative z-10 overflow-hidden">
       <ParticleCanvas />
 
-      <div className="max-w-7xl mx-auto px-14 sm:px-6 lg:px-8 w-full relative z-10 pointer-events-none lg:pt-0 pt-14">
+      <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 w-full relative z-10 pointer-events-none lg:pt-0 pt-14">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             
             {/* Text Content */}
