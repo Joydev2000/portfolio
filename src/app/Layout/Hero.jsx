@@ -81,14 +81,16 @@ const Hero = () => {
     setTerminalHistory(newHistory);
 
     const metaPrompt = `
-    You are a helpful AI assistant for a Full Stack Developer's portfolio. The developer's name is "Joydev".
-    They know React, Next.js, Node.js, Python, and UI Design.
+    You are a helpful AI assistant for a Frontend Developer's portfolio. The developer's name is "Joydev".
+    They are a passionate Frontend Developer experienced in HTML, CSS, JS, React, and WordPress.
+    They are dedicated to building smooth, user-centric web experiences and converting complex UI designs into optimized, responsive web pages.
     
     User Input: "${userPrompt}"
     
     Task:
-    1. If the user is asking a question (e.g., "Who are you?", "What skills do you have?"), reply with a friendly, short text answer (max 2 sentences).
-    2. If the user is asking for code (e.g., "Write a button", "Create a function"), generate the code block (max 15 lines).
+    1. If the user is asking a question (e.g., "Who are you?", "What skills do you have?", "How can I contact you?"), reply with a friendly, short text answer (max 2 sentences). Include accurate details about Joydev. And his contct number is +917478362081 and email id is joydevsuvo2202@gmail.com
+    2. If the user is asking for code (e.g., "Write a button", "Create a function"), generate the code block and use jsx and taildwain for styling (max 15 lines).
+    2. If the user is asking for code (e.g., "Write a button", "Create a function"), generate the code block and use jsx and taildwain for styling (max 15 lines).
     
     Return JSON format ONLY:
     { "type": "chat" or "code", "content": "..." }
@@ -150,8 +152,8 @@ const Hero = () => {
                 </StaggerItem>
                 <StaggerItem className="text-5xl md:text-7xl font-display font-bold leading-tight text-white tracking-tight h-[160px] mb-0 md:h-auto flex flex-col justify-center">
                     <span className="text-slate-400 text-3xl md:text-5xl mb-2">Building the</span>
-                    <div className="flex items-center">
-                        <span className={`px-1 ${isTitleSelected ? 'text-gradient' : 'text-gradient'} h-[100px]`}>
+                    <div className="flex items-center h-[50px] md:h-[80PX]">
+                        <span className={`px-1 ${isTitleSelected ? 'text-gradient' : 'text-gradient'}`}>
                           {heroTitle}
                         </span>
                         <span className={`w-1 h-10 md:h-16 bg-[#58a6ff] ml-1 ${isBlinking ? 'animate-cursor-blink' : ''}`}></span>

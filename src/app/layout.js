@@ -1,6 +1,7 @@
 import "./globals.css";
 import Footer from "./Layout/Footer";
 import Header from "./Layout/Header";
+import ChatBot from "./components/ChatBot";
 
 export const metadata = {
   title: "Joydev Halder | Frontend Developer",
@@ -16,7 +17,7 @@ export default function RootLayout({ children }) {
         <Header/>
         {children}
         <Footer/>
-        
+        <ChatBot/>
         </body>
     </html>
   );

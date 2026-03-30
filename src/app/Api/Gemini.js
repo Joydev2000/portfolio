@@ -1,11 +1,16 @@
-const apiKey = "AIzaSyBwhU1KPMROrK5pm9aQTpw3Fg5-OGiQ0w0"; // Insert your Gemini API key here
+// The previous API key was reported as leaked and disabled by Google.
+// Please create a new key from https://aistudio.google.com/app/apikey 
+// and insert it below (or use environment variables).
+const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || "INSERT_NEW_API_KEY_HERE";
 
 const callGemini = async (prompt) => {
-  if (!apiKey) {
-    console.error("API Key missing (environment variable).");
+  if (!apiKey || apiKey === "INSERT_NEW_API_KEY_HERE") {
+    console.error("API Key missing. Please set NEXT_PUBLIC_GEMINI_API_KEY in .env.local or paste it natively.");
     return null;
   }
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+  
+  // Use a valid model name: gemini-2.5-flash
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
   try {
     const response = await fetch(url, {
       method: 'POST',
