@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-slate-500">
         <div className="mb-4 md:mb-0">
           <span className="text-white font-bold text-lg">Joydev</span>
-          <span className="ml-2">© 2024</span>
+          <span className="ml-2">© {new Date().getFullYear()}</span>
         </div>
         <div className="flex space-x-6">
           <a href="#" className="hover:text-blue-400 transition-colors">
