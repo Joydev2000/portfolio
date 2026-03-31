@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import callGemini from "../Api/Gemini";
+import { getAIPrompt } from "../data/aiData";
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,40 +25,7 @@ const ChatBot = () => {
     setMessages((prev) => [...prev, { id: Date.now(), type: "user", text: userPrompt }]);
     setIsLoading(true);
 
-    const metaPrompt = `
-You are a helpful AI assistant for Joydev Halder's portfolio. Joydev is a Graphic, Web Design & Web Developer.
-
-ABOUT JOYDEV:
-- Name: Joydev Halder
-- Location: Bongaon, 743249, India
-- Born: 22-02-2000
-- Contact: +917478362081 | joydevsuvo2202@gmail.com | www.joydev.com
-- Summary: Frontend Developer with experience in WordPress, HTML, CSS, JavaScript, and React. Passionate about building responsive, high-performance websites and developing smooth user experiences through clean and efficient code. Skilled at converting UI designs into responsive web pages and optimizing websites.
-
-EXPERIENCE:
-- Web Developer at Web Circle Technology (Nov 2024 - Present): Build/customize WordPress websites, develop React UI components, create responsive HTML/CSS layouts, optimize site performance.
-- Junior UI/UX Designer at TimdTech (Apr 2024 - Oct 2024): Collaborated on UI/UX, worked with React, created prototypes, fixed design bugs.
-
-EDUCATION & QUALIFICATION:
-- Diploma in Graphic, Web Design and Web Development from Arena Animation, Barasat.
-- Graduation: Netaji Subhas Open University (2022-2026).
-
-SKILLS:
-- Coding: HTML, CSS, JavaScript, React.js, Next.js (UI), Tailwind CSS, Bootstrap, jQuery, Core PHP, Git & Github.
-- CMS: WordPress
-- Software: Photoshop, Illustrator, Figma, Adobe XD, InDesign, VS Code.
-- Languages: English, Hindi, Bengali.
-- Hobbies: Coding, Music, Travel, Riding, Games.
-
-User Input: "${userPrompt}"
-
-Task:
-1. If the user is asking a question (e.g., "Who are you?", "What is your experience?", "How can I contact you?"), reply with a friendly, conversational, and short text answer (max 3 sentences) using the information provided above. Speak as the AI assistant representing Joydev. Include accurate details.
-2. If the user is asking for code (e.g., "Write a button"), generate the code block and use jsx and tailwind for styling (max 15 lines).
-
-Return JSON format ONLY:
-{ "type": "chat" or "code", "content": "..." }
-    `;
+    const metaPrompt = getAIPrompt(userPrompt);
 
     const resultStr = await callGemini(metaPrompt);
     setIsLoading(false);
@@ -71,17 +39,21 @@ Return JSON format ONLY:
     }
 
     try {
-      const cleanJson = resultStr.replace(/```json/g, '').replace(/```/g, '').trim();
-      const response = JSON.parse(cleanJson);
+      // Find JSON string using regex in case LLaMA wraps it in text or markdown
+      const jsonMatch = resultStr.match(/\{[\s\S]*?\}/);
+      if (!jsonMatch) throw new Error("No JSON object found in response");
+      
+      const response = JSON.parse(jsonMatch[0].replace(/```/g, ''));
       
       setMessages((prev) => [
         ...prev,
         { id: Date.now() + 2, type: "ai", text: response.content, isCode: response.type === "code" }
       ]);
     } catch (e) {
+      console.error("Chat parsing failed:", e, resultStr);
       setMessages((prev) => [
         ...prev,
-        { id: Date.now() + 3, type: "ai", text: resultStr }
+        { id: Date.now() + 3, type: "ai", text: resultStr } // Fallback to raw string
       ]);
     }
   };

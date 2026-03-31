@@ -14,50 +14,14 @@ const Portfolio = () => {
     { title: "3D Portfolio", tech: "Three.js" }
   ]);
 
-  const generateAIProject = async () => {
-    setIsBrainstorming(true);
-    const prompt = `You are a visionary tech architect. Invent a highly creative, futuristic, and impressive web development project concept for a portfolio. 
-    IMPORTANT: You must return ONLY a raw, complete JSON object with exactly these two keys. Do NOT wrap it in markdown block quotes. Do NOT include any conversational text.
-    {
-      "title": "Example Title",
-      "tech": "React / WebGL"
-    }`;
 
-    const response = await callGemini(prompt);
-
-    if (!response) {
-      console.error("AI Gen Failed: No response from API.");
-      setIsBrainstorming(false);
-      return;
-    }
-
-    try {
-      // Find JSON string in case the AI wraps it in plain text or markdown
-      const jsonMatch = response.match(/\{[\s\S]*?\}/);
-      if (!jsonMatch) throw new Error("No JSON object found in response");
-      
-      const project = JSON.parse(jsonMatch[0]);
-      
-      if (project.title && project.tech) {
-        setSpotlightProject(project);
-        setProjectsList([project, ...projectsList]);
-      } else {
-        throw new Error("Missing required JSON keys");
-      }
-    } catch (e) {
-      console.error("AI Gen Failed:", e, "Response was:", response);
-    }
-    setIsBrainstorming(false);
-  };
 
   return (
     <section id="portfolio" className="py-24 bg-[#0b1120] relative overflow-hidden z-10 border-y border-white/5">
       <ScrollReveal className="max-w-7xl mx-auto px-4 mb-16 text-center">
           <h2 className="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">Portfolio</h2>
           <h3 className="text-3xl md:text-4xl font-display font-bold text-white tracking-tight mb-6">Featured Projects</h3>
-          <button onClick={generateAIProject} disabled={isBrainstorming} className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/30 rounded-full font-mono text-xs transition-colors shadow-lg shadow-blue-500/10 group">
-              <i className={`fas ${isBrainstorming ? 'fa-spinner fa-spin' : 'fa-magic group-hover:animate-pulse'}`}></i> {isBrainstorming ? 'Brainstorming...' : '✨ Brainstorm Custom Concept'}
-          </button>
+
       </ScrollReveal>
 
       {spotlightProject && (
