@@ -102,7 +102,7 @@ const ParticleCanvas = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-0 opacity-40"></canvas>;
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-0 opacity-70"></canvas>;
 };
 
 export default ParticleCanvas;

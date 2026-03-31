@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react";   
+import callGemini from "../Api/Gemini";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "../components/ScrollReveal";
 
 const Portfolio = () => {
@@ -16,20 +17,35 @@ const Portfolio = () => {
   const generateAIProject = async () => {
     setIsBrainstorming(true);
     const prompt = `You are a visionary tech architect. Invent a highly creative, futuristic, and impressive web development project concept for a portfolio. 
-    Return ONLY a valid JSON object with exactly these two keys: 
-    "title" (e.g., "Quantum Data Visualizer", max 4 words)
-    "tech" (e.g., "React / WebGL", max 3 technologies)`;
+    IMPORTANT: You must return ONLY a raw, complete JSON object with exactly these two keys. Do NOT wrap it in markdown block quotes. Do NOT include any conversational text.
+    {
+      "title": "Example Title",
+      "tech": "React / WebGL"
+    }`;
 
     const response = await callGemini(prompt);
 
+    if (!response) {
+      console.error("AI Gen Failed: No response from API.");
+      setIsBrainstorming(false);
+      return;
+    }
+
     try {
-      const cleanJson = response.replace(/```json/g, '').replace(/```/g, '').trim();
-      const project = JSON.parse(cleanJson);
+      // Find JSON string in case the AI wraps it in plain text or markdown
+      const jsonMatch = response.match(/\{[\s\S]*?\}/);
+      if (!jsonMatch) throw new Error("No JSON object found in response");
       
-      setSpotlightProject(project);
-      setProjectsList([project, ...projectsList]);
+      const project = JSON.parse(jsonMatch[0]);
+      
+      if (project.title && project.tech) {
+        setSpotlightProject(project);
+        setProjectsList([project, ...projectsList]);
+      } else {
+        throw new Error("Missing required JSON keys");
+      }
     } catch (e) {
-      console.error("AI Gen Failed");
+      console.error("AI Gen Failed:", e, "Response was:", response);
     }
     setIsBrainstorming(false);
   };

@@ -1,26 +1,37 @@
-// The previous API key was reported as leaked and disabled by Google.
-// Please create a new key from https://aistudio.google.com/app/apikey 
-// and insert it below (or use environment variables).
-const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || "INSERT_NEW_API_KEY_HERE";
+const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY || "INSERT_NEW_API_KEY_HERE";
 
 const callGemini = async (prompt) => {
   if (!apiKey || apiKey === "INSERT_NEW_API_KEY_HERE") {
-    console.error("API Key missing. Please set NEXT_PUBLIC_GEMINI_API_KEY in .env.local or paste it natively.");
+    console.error("API Key missing. Please set NEXT_PUBLIC_GROQ_API_KEY in .env.local");
     return null;
   }
   
-  // Use a valid model name: gemini-2.5-flash
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+  const url = `https://api.groq.com/openai/v1/chat/completions`;
+  
   try {
     const response = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: "llama-3.1-8b-instant", // Updated to the newest available Llama model on Groq
+        messages: [{ role: "user", content: prompt }]
+      })
     });
+    
+    // Check if the API request itself fails (e.g. invalid key)
+    if (!response.ok) {
+        const err = await response.json();
+        console.error("Groq API Error Details:", err);
+        return null;
+    }
+    
     const data = await response.json();
-    return data.candidates?.[0]?.content?.parts?.[0]?.text;
+    return data.choices?.[0]?.message?.content;
   } catch (error) {
-    console.error("Gemini Error:", error);
+    console.error("Fetch Error:", error);
     return null;
   }
 };
