@@ -2,6 +2,13 @@ import "./globals.css";
 import Footer from "./Layout/Footer";
 import Header from "./Layout/Header";
 import ChatBot from "./components/ChatBot";
+import SmoothScroll from "./components/SmoothScroll";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export const metadata = {
   title: "Joydev Halder | Frontend Developer",
@@ -10,15 +17,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-    >
+    <html lang="en">
       <body className="min-h-full flex flex-col">
-        <Header/>
-        {children}
-        <Footer/>
-        <ChatBot/>
-        </body>
+        <SmoothScroll>
+          <Header />
+          {children}
+          <Footer />
+        </SmoothScroll>
+        <ChatBot />
+      </body>
     </html>
   );
 }

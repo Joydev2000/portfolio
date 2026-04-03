@@ -7,11 +7,44 @@ import { getAIPrompt } from "../data/aiData";
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { id: 1, type: "ai", text: "Hi! I'm Joydev's AI Assistant. How can I help you today?" }
+    { id: 1, type: "ai", text: "Hi! I'm Joydev Halder. How can I help you today?" }
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  const formatMessage = (text) => {
+    if (!text) return text;
+    // Regex for URLs, Emails, and Phone Numbers
+    const combinedRegex = /(https?:\/\/[^\s]+)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})|(\+91\d{10})/g;
+    const parts = text.split(combinedRegex);
+    
+    return parts.map((part, index) => {
+      if (!part) return null;
+      if (part.match(/^https?:\/\//)) {
+        return (
+          <a key={index} href={part} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline font-medium">
+            {part}
+          </a>
+        );
+      }
+      if (part.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
+        return (
+          <a key={index} href={`mailto:${part}`} className="text-blue-400 hover:underline font-medium">
+            {part}
+          </a>
+        );
+      }
+      if (part.match(/^\+91\d{10}$/)) {
+        return (
+          <a key={index} href={`tel:${part}`} className="text-blue-400 hover:underline font-medium">
+            {part}
+          </a>
+        );
+      }
+      return part;
+    });
+  };
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -102,7 +135,7 @@ const ChatBot = () => {
                       <pre><code>{msg.text}</code></pre>
                     </div>
                   ) : (
-                    <p className="whitespace-pre-wrap">{msg.text}</p>
+                    <p className="whitespace-pre-wrap">{formatMessage(msg.text)}</p>
                   )}
                 </div>
               </div>

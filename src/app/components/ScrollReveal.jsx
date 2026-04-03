@@ -1,47 +1,80 @@
 "use client";
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export const ScrollReveal = ({ children, className = "", delay = 0, y = 50 }) => {
+// Register ScrollTrigger globally if not already done in layout
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+export const ScrollReveal = ({ children, className = "", delay = 0, y = 30 }) => {
+  const elementRef = useRef(null);
+
+  useEffect(() => {
+    const el = elementRef.current;
+    gsap.fromTo(
+      el,
+      { opacity: 0, y: y },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        delay: delay,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 90%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+  }, [delay, y]);
+
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8, delay: delay, ease: "easeOut" }}
-    >
+    <div ref={elementRef} className={className} style={{ opacity: 0 }}>
       {children}
-    </motion.div>
+    </div>
   );
 };
 
-export const StaggerContainer = ({ children, className = "", delayChildren = 0.2, staggerChildren = 0.1 }) => {
+export const StaggerContainer = ({ children, className = "", delayChildren = 0.1, staggerChildren = 0.1 }) => {
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    const items = el.querySelectorAll(".stagger-item");
+    
+    gsap.fromTo(
+      items,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        stagger: staggerChildren,
+        delay: delayChildren,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 90%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+  }, [delayChildren, staggerChildren]);
+
   return (
-    <motion.div
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={{
-        visible: { transition: { staggerChildren, delayChildren } },
-        hidden: {},
-      }}
-    >
+    <div ref={containerRef} className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 };
 
-export const StaggerItem = ({ children, className = "", y = 50 }) => {
+export const StaggerItem = ({ children, className = "" }) => {
   return (
-    <motion.div
-      className={className}
-      variants={{
-        hidden: { opacity: 0, y: y },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
-      }}
-    >
+    <div className={`${className} stagger-item`} style={{ opacity: 0 }}>
       {children}
-    </motion.div>
+    </div>
   );
 };
