@@ -14,18 +14,21 @@ const Header = () => {
               Joy.<span className="text-[#58a6ff]">dev</span>
             </span>
           </div>
-          
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8 font-medium">
-              <a href="#hero" className="hover:text-white transition-colors text-sm">Home</a>
-              <a href="#about" className="hover:text-white transition-colors text-sm">About</a>
-              <a href="#portfolio" className="hover:text-white transition-colors text-sm">Portfolio</a>
-              <a href="#credentials" className="hover:text-white transition-colors text-sm">Credentials</a>
-              <a href="#timeline" className="hover:text-white transition-colors text-sm">Timeline</a>
-              <a href="#contact" className="px-5 py-2.5 bg-[#58a6ff] hover:bg-blue-500 text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-500/20">
-                  Contact Me
-              </a>
+          <div className="hidden md:flex flex-1 justify-center relative">
+            <div className="flex items-center space-x-8 font-medium bg-[#0d1117]/80 backdrop-blur-md border border-white/10 rounded-full px-8 py-2.5 shadow-lg">
+              <a href="#hero" className="bg-[#58a6ff] hover:bg-blue-500 text-white px-5 py-1.5 rounded-full text-sm font-semibold shadow-md transition-colors">Home</a>
+              <a href="#about" className="text-gray-400 hover:text-white transition-colors text-sm">About</a>
+              <a href="#portfolio" className="text-gray-400 hover:text-white transition-colors text-sm">Portfolio</a>
+              <a href="#credentials" className="text-gray-400 hover:text-white transition-colors text-sm">Credentials</a>
+              <a href="#timeline" className="text-gray-400 hover:text-white transition-colors text-sm">Timeline</a>
             </div>
+          </div>
+
+          <div className="hidden md:flex items-center space-x-6">
+            <a href="#login" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">Login</a>
+            <a href="#contact" className="px-5 py-2.5 bg-white text-black hover:bg-gray-200 rounded-full text-sm font-bold transition-all shadow-lg shadow-white/10">
+                Sign Up
+            </a>
           </div>
 
           <div className="-mr-2 flex md:hidden">

@@ -12,7 +12,7 @@ export default function Home() {
    <>
          <div className="bg-[#010409] text-[#c9d1d9] font-['Inter',_sans-serif] selection:bg-[#58a6ff] selection:text-white overflow-x-hidden relative min-h-screen">
           <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet" />
           
           <style dangerouslySetInnerHTML={{__html: `
             ::-webkit-scrollbar { width: 6px; }

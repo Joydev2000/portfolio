@@ -3,6 +3,7 @@ import Footer from "./Layout/Footer";
 import Header from "./Layout/Header";
 import ChatBot from "./components/ChatBot";
 import SmoothScroll from "./components/SmoothScroll";
+import CursorGlow from "./Layout/CursorGlow";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
           <Footer />
         </SmoothScroll>
         <ChatBot />
+        <CursorGlow />
       </body>
     </html>
   );

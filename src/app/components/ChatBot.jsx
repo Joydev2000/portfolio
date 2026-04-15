@@ -15,8 +15,8 @@ const ChatBot = () => {
 
   const formatMessage = (text) => {
     if (!text) return text;
-    // Regex for URLs, Emails, and Phone Numbers
-    const combinedRegex = /(https?:\/\/[^\s]+)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})|(\+91\d{10})/g;
+    // Regex for URLs, PDFs, Emails, and Phone Numbers
+    const combinedRegex = /(https?:\/\/[^\s]+)|(\/[^\s]+\.pdf)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})|(\+91\d{10})/g;
     const parts = text.split(combinedRegex);
     
     return parts.map((part, index) => {
@@ -25,6 +25,13 @@ const ChatBot = () => {
         return (
           <a key={index} href={part} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline font-medium">
             {part}
+          </a>
+        );
+      }
+      if (part.match(/^\/[^\s]+\.pdf$/)) {
+        return (
+          <a key={index} href={part} download target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 mt-2 bg-blue-600/20 text-blue-400 border border-blue-500/30 rounded-lg hover:bg-blue-600 hover:text-white transition-all font-semibold text-xs uppercase tracking-widest cursor-pointer">
+            <i className="fas fa-download"></i> Download CV
           </a>
         );
       }
@@ -92,9 +99,9 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none">
       {isOpen && (
-        <div className="w-80 sm:w-96 h-125 max-h-[80vh] bg-[#0d1117] border border-[#30363d] rounded-2xl shadow-2xl mb-4 flex flex-col overflow-hidden animate-fade-in-up">
+        <div className="w-80 sm:w-96 h-[500px] max-h-[80vh] bg-[#0d1117] border border-[#30363d] rounded-2xl shadow-2xl mb-4 flex flex-col overflow-hidden animate-fade-in-up pointer-events-auto">
           {/* Header */}
           <div className="bg-[#010409] border-b border-[#30363d] p-4 flex justify-between items-center text-white">
             <div className="flex items-center gap-2">
@@ -117,7 +124,12 @@ const ChatBot = () => {
           </div>
 
           {/* Messages Area */}
-          <div className="flex-1 p-4 overflow-y-auto custom-scrollbar space-y-4 bg-[#0d1117]">
+          <div 
+            className="flex-1 p-4 overflow-y-auto overscroll-contain custom-scrollbar space-y-4 bg-[#0d1117]"
+            data-lenis-prevent="true"
+            onWheel={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
+          >
             {messages.map((msg) => (
               <div
                 key={msg.id}
@@ -179,7 +191,7 @@ const ChatBot = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="w-14 h-14 bg-blue-600 hover:bg-blue-500 text-white rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-50 animate-bounce-subtle"
+          className="w-14 h-14 bg-blue-600 hover:bg-blue-500 text-white rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-50 animate-bounce-subtle pointer-events-auto"
         >
           <i className="fas fa-comment-dots text-2xl"></i>
         </button>
