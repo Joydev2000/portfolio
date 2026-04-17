@@ -7,7 +7,11 @@ import { getAIPrompt } from "../data/aiData";
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { id: 1, type: "ai", text: "Hi! I'm Joydev Halder. How can I help you today?" }
+    {
+      id: 1,
+      type: "ai",
+      text: "Hi! I'm Joydev Halder. How can I help you today?",
+    },
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -16,35 +20,57 @@ const ChatBot = () => {
   const formatMessage = (text) => {
     if (!text) return text;
     // Regex for URLs, PDFs, Emails, and Phone Numbers
-    const combinedRegex = /(https?:\/\/[^\s]+)|(\/[^\s]+\.pdf)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})|(\+91\d{10})/g;
+    const combinedRegex =
+      /(https?:\/\/[^\s]+)|(\/[^\s]+\.pdf)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})|(\+91\d{10})/g;
     const parts = text.split(combinedRegex);
-    
+
     return parts.map((part, index) => {
       if (!part) return null;
       if (part.match(/^https?:\/\//)) {
         return (
-          <a key={index} href={part} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline font-medium">
+          <a
+            key={index}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:underline font-medium"
+          >
             {part}
           </a>
         );
       }
       if (part.match(/^\/[^\s]+\.pdf$/)) {
         return (
-          <a key={index} href={part} download target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 mt-2 bg-blue-600/20 text-blue-400 border border-blue-500/30 rounded-lg hover:bg-blue-600 hover:text-white transition-all font-semibold text-xs uppercase tracking-widest cursor-pointer">
+          <a
+            key={index}
+            href={part}
+            download
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 mt-2 bg-blue-600/20 text-blue-400 border border-blue-500/30 rounded-lg hover:bg-blue-600 hover:text-white transition-all font-semibold text-xs uppercase tracking-widest cursor-pointer"
+          >
             <i className="fas fa-download"></i> Download CV
           </a>
         );
       }
       if (part.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
         return (
-          <a key={index} href={`mailto:${part}`} className="text-blue-400 hover:underline font-medium">
+          <a
+            key={index}
+            href={`mailto:${part}`}
+            className="text-blue-400 hover:underline font-medium"
+          >
             {part}
           </a>
         );
       }
       if (part.match(/^\+91\d{10}$/)) {
         return (
-          <a key={index} href={`tel:${part}`} className="text-blue-400 hover:underline font-medium">
+          <a
+            key={index}
+            href={`tel:${part}`}
+            className="text-blue-400 hover:underline font-medium"
+          >
             {part}
           </a>
         );
@@ -62,7 +88,10 @@ const ChatBot = () => {
     if (!userPrompt) return;
 
     setInputValue("");
-    setMessages((prev) => [...prev, { id: Date.now(), type: "user", text: userPrompt }]);
+    setMessages((prev) => [
+      ...prev,
+      { id: Date.now(), type: "user", text: userPrompt },
+    ]);
     setIsLoading(true);
 
     const metaPrompt = getAIPrompt(userPrompt);
@@ -73,7 +102,11 @@ const ChatBot = () => {
     if (!resultStr) {
       setMessages((prev) => [
         ...prev,
-        { id: Date.now() + 1, type: "ai", text: "Connection failed. Please check your API key." }
+        {
+          id: Date.now() + 1,
+          type: "ai",
+          text: "Connection failed. Please check your API key.",
+        },
       ]);
       return;
     }
@@ -82,18 +115,23 @@ const ChatBot = () => {
       // Find JSON string using regex in case LLaMA wraps it in text or markdown
       const jsonMatch = resultStr.match(/\{[\s\S]*?\}/);
       if (!jsonMatch) throw new Error("No JSON object found in response");
-      
-      const response = JSON.parse(jsonMatch[0].replace(/```/g, ''));
-      
+
+      const response = JSON.parse(jsonMatch[0].replace(/```/g, ""));
+
       setMessages((prev) => [
         ...prev,
-        { id: Date.now() + 2, type: "ai", text: response.content, isCode: response.type === "code" }
+        {
+          id: Date.now() + 2,
+          type: "ai",
+          text: response.content,
+          isCode: response.type === "code",
+        },
       ]);
     } catch (e) {
       console.error("Chat parsing failed:", e, resultStr);
       setMessages((prev) => [
         ...prev,
-        { id: Date.now() + 3, type: "ai", text: resultStr } // Fallback to raw string
+        { id: Date.now() + 3, type: "ai", text: resultStr }, // Fallback to raw string
       ]);
     }
   };
@@ -109,9 +147,12 @@ const ChatBot = () => {
                 <i className="fas fa-robot text-sm"></i>
               </div>
               <div>
-                <h3 className="text-sm font-semibold tracking-wide">Joydev&apos;s AI</h3>
+                <h3 className="text-sm font-semibold tracking-wide">
+                  Joydev&apos;s AI
+                </h3>
                 <p className="text-[10px] text-green-400 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block animate-pulse"></span> Online
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block animate-pulse"></span>{" "}
+                  Online
                 </p>
               </div>
             </div>
@@ -124,7 +165,7 @@ const ChatBot = () => {
           </div>
 
           {/* Messages Area */}
-          <div 
+          <div
             className="flex-1 p-4 overflow-y-auto overscroll-contain custom-scrollbar space-y-4 bg-[#0d1117]"
             data-lenis-prevent="true"
             onWheel={(e) => e.stopPropagation()}
@@ -144,10 +185,14 @@ const ChatBot = () => {
                 >
                   {msg.isCode ? (
                     <div className="overflow-x-auto bg-[#010409] p-3 rounded-lg border border-[#30363d] mt-1 text-xs font-mono">
-                      <pre><code>{msg.text}</code></pre>
+                      <pre>
+                        <code>{msg.text}</code>
+                      </pre>
                     </div>
                   ) : (
-                    <p className="whitespace-pre-wrap">{formatMessage(msg.text)}</p>
+                    <p className="whitespace-pre-wrap">
+                      {formatMessage(msg.text)}
+                    </p>
                   )}
                 </div>
               </div>
