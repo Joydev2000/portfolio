@@ -16,7 +16,7 @@ const Timeline = () => {
             <h2 className="text-sm font-bold text-purple-400 uppercase tracking-widest mb-3">
               03. Data Logs
             </h2>
-            <h3 className="text-3xl md:text-4xl font-display font-bold text-white tracking-tight">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white tracking-tight">
               Professional Journey
             </h3>
           </div>

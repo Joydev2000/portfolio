@@ -1,253 +1,154 @@
 "use client";
 import { useEffect, useRef } from "react";
 
-const LENS_SIZE = 140; // px diameter of magnifier lens
+const TEXT_SELECTORS  = "h1, h2, h3, h4, h5, h6, p, span, label, a, li";
+const BTN_SELECTORS   = "button, [role='button']";
 
 const CursorGlow = () => {
-  const dotRef   = useRef(null);
-  const ringRef  = useRef(null);
-  const glowRef  = useRef(null);
-  const lensRef  = useRef(null);
-  const trailsRef = useRef([]);
+  const dotRef   = useRef(null);   // tiny precision dot (default)
+  const ringRef  = useRef(null);   // lagging gradient ring (default)
+  const glowRef  = useRef(null);   // ambient glow halo (default)
+  const blobRef  = useRef(null);   // big white blob (text-hover only)
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    document.documentElement.style.cursor = "none";
-
-    // Restore text-cursor only on text nodes
-    const textSelectors = "h1, h2, h3, h4, h5, h6, p, span, label";
+    // ── Hide native cursor everywhere ──
     const styleTag = document.createElement("style");
-    styleTag.innerHTML = `
-      ${textSelectors} { cursor: crosshair !important; }
-      .magnify-active { 
-        transform-origin: center;
-        transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), filter 0.25s; 
-      }`;
+    styleTag.innerHTML = `*, *::before, *::after { cursor: none !important; }`;
     document.head.appendChild(styleTag);
 
-    let mouseX  = window.innerWidth  / 2;
-    let mouseY  = window.innerHeight / 2;
-    let ringX   = mouseX, ringY  = mouseY;
-    let glowX   = mouseX, glowY  = mouseY;
-    let lensX   = mouseX, lensY  = mouseY;
+    let mouseX = window.innerWidth  / 2;
+    let mouseY = window.innerHeight / 2;
+
+    // Per-layer lagging positions
+    let ringX = mouseX, ringY = mouseY;
+    let glowX = mouseX, glowY = mouseY;
+    let blobX = mouseX, blobY = mouseY;
+
     let isOnText = false;
+    let isOnBtn  = false;
     let rafId;
-    let currentMagnified = null; // the text element currently scaled up
-    const trails = trailsRef.current;
 
-    // ── Magnify a text element ──
-    const magnifyEl = (el) => {
-      if (currentMagnified === el) return;
-      unMagnify();
-      currentMagnified = el;
-      el.classList.add("magnify-active");
-      el.style.transform = "scale(1.08)";
-      el.style.filter = "drop-shadow(0 0 12px rgba(88,166,255,0.35))";
-      el.style.zIndex = "10";
-    };
-
-    const unMagnify = () => {
-      if (!currentMagnified) return;
-      currentMagnified.style.transform = "";
-      currentMagnified.style.filter    = "";
-      currentMagnified.style.zIndex    = "";
-      currentMagnified.classList.remove("magnify-active");
-      currentMagnified = null;
-    };
-
+    // ── Track mouse ──
     const onMove = (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-
-      // ── Magnetic pull toward headings ──
-      document.querySelectorAll("h1, h2, h3").forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        const cx = rect.left + rect.width  / 2;
-        const cy = rect.top  + rect.height / 2;
-        const dx = e.clientX - cx;
-        const dy = e.clientY - cy;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 150) {
-          const strength = (1 - dist / 150) * 0.3;
-          mouseX = e.clientX - dx * strength;
-          mouseY = e.clientY - dy * strength;
-        }
-      });
-
-      // ── Lens circle: update CSS vars relative to each text wrapper ──
-      document.querySelectorAll(".lens-text-wrap").forEach((wrap) => {
-        const rect = wrap.getBoundingClientRect();
-        const relX = e.clientX - rect.left;
-        const relY = e.clientY - rect.top;
-        wrap.style.setProperty("--lx", `${relX}px`);
-        wrap.style.setProperty("--ly", `${relY}px`);
-      });
-
-      isOnText = e.target.closest("h1, h2, h3, h4, h5, h6, p") !== null;
+      mouseX   = e.clientX;
+      mouseY   = e.clientY;
+      isOnText = !!e.target.closest(TEXT_SELECTORS) && !e.target.closest(BTN_SELECTORS);
+      isOnBtn  = !!e.target.closest(BTN_SELECTORS);
     };
-
     window.addEventListener("mousemove", onMove);
 
     // ── Animation loop ──
     const animate = () => {
-      ringX += (mouseX - ringX) * 0.12;
-      ringY += (mouseY - ringY) * 0.12;
-      glowX += (mouseX - glowX) * 0.06;
-      glowY += (mouseY - glowY) * 0.06;
-      lensX += (mouseX - lensX) * 0.18;
-      lensY += (mouseY - lensY) * 0.18;
-
-      // Dot (always follows precisely)
+      // Precise dot – snaps instantly
       if (dotRef.current) {
         dotRef.current.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
-        dotRef.current.style.opacity   = isOnText ? "0" : "1";
+        // Hide dot when on text (blob takes over) or on buttons
+        dotRef.current.style.opacity = isOnText || isOnBtn ? "0" : "1";
       }
 
-      // Ring — hidden on text, shows on interactive
+      // Ring – medium lag
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
       if (ringRef.current) {
-        ringRef.current.style.transform = `translate(${ringX - 20}px, ${ringY - 20}px)`;
-        ringRef.current.style.opacity   = isOnText ? "0" : "1";
+        const size = isOnBtn ? 56 : 40;
+        ringRef.current.style.width  = `${size}px`;
+        ringRef.current.style.height = `${size}px`;
+        ringRef.current.style.transform = `translate(${ringX - size / 2}px, ${ringY - size / 2}px)`;
+        // Hide ring when on text
+        ringRef.current.style.opacity = isOnText ? "0" : "1";
+        ringRef.current.style.borderColor = isOnBtn
+          ? "rgba(160,120,255,0.95)"
+          : "rgba(120,80,255,0.7)";
+        ringRef.current.style.background = isOnBtn
+          ? "rgba(120,80,255,0.08)"
+          : "transparent";
       }
 
-      // Comet glow
+      // Glow halo – slow drift
+      glowX += (mouseX - glowX) * 0.055;
+      glowY += (mouseY - glowY) * 0.055;
       if (glowRef.current) {
-        glowRef.current.style.transform = `translate(${glowX - 80}px, ${glowY - 80}px)`;
+        glowRef.current.style.transform = `translate(${glowX - 90}px, ${glowY - 90}px)`;
+        // Dim glow when on text
+        glowRef.current.style.opacity = isOnText ? "0.3" : "1";
       }
 
-      // ── Magnifier lens position ──
-      const half = LENS_SIZE / 2;
-      if (lensRef.current) {
-        lensRef.current.style.transform = `translate(${lensX - half}px, ${lensY - half}px)`;
-        lensRef.current.style.opacity   = isOnText ? "1" : "0";
-        lensRef.current.style.transform += isOnText ? " scale(1)" : " scale(0.4)";
+      // White blob – appears ONLY on text hover
+      blobX += (mouseX - blobX) * (isOnText ? 0.14 : 0.22);
+      blobY += (mouseY - blobY) * (isOnText ? 0.14 : 0.22);
+      if (blobRef.current) {
+        blobRef.current.style.transform = `translate(${blobX - 35}px, ${blobY - 35}px)`;
+        blobRef.current.style.opacity   = isOnText ? "1" : "0";
+        blobRef.current.style.transform += isOnText ? " scale(1)" : " scale(0.3)";
       }
-
-      // Trails
-      trails.forEach((trail, i) => {
-        if (!trail) return;
-        const tx = mouseX + (Math.random() - 0.5) * 4;
-        const ty = mouseY + (Math.random() - 0.5) * 4;
-        trail.style.transform = `translate(${tx - 3}px, ${ty - 3}px)`;
-        trail.style.opacity   = isOnText ? "0" : `${(1 - (i + 1) * 0.07 * 3) * 0.5}`;
-      });
 
       rafId = requestAnimationFrame(animate);
     };
     animate();
 
-    // Hover: buttons enlarge ring
-    const onEnter = () => {
-      if (!ringRef.current) return;
-      ringRef.current.style.width  = "52px";
-      ringRef.current.style.height = "52px";
-      ringRef.current.style.borderColor = "rgba(88,166,255,0.9)";
-      ringRef.current.style.background  = "rgba(88,166,255,0.05)";
-    };
-    const onLeave = () => {
-      if (!ringRef.current) return;
-      ringRef.current.style.width  = "40px";
-      ringRef.current.style.height = "40px";
-      ringRef.current.style.borderColor = "rgba(88,166,255,0.6)";
-      ringRef.current.style.background  = "transparent";
-    };
-    const buttons = document.querySelectorAll("a, button, [role='button']");
-    buttons.forEach((el) => { el.addEventListener("mouseenter", onEnter); el.addEventListener("mouseleave", onLeave); });
-
     return () => {
-      document.documentElement.style.cursor = "";
       document.head.removeChild(styleTag);
       window.removeEventListener("mousemove", onMove);
       cancelAnimationFrame(rafId);
-      unMagnify();
-      buttons.forEach((el) => { el.removeEventListener("mouseenter", onEnter); el.removeEventListener("mouseleave", onLeave); });
     };
   }, []);
 
   return (
     <>
-      {/* ── Comet glow ── */}
+      {/* ── Ambient glow halo (default state) ── */}
       <div
         ref={glowRef}
         className="fixed top-0 left-0 pointer-events-none z-[9988] will-change-transform rounded-full"
         style={{
-          width: 160, height: 160,
-          background: "radial-gradient(circle, rgba(88,166,255,0.10) 0%, rgba(88,166,255,0.04) 45%, transparent 70%)",
-          filter: "blur(14px)",
+          width:  180,
+          height: 180,
+          background:
+            "radial-gradient(circle, rgba(140,80,255,0.18) 0%, rgba(80,60,220,0.09) 45%, transparent 70%)",
+          filter: "blur(22px)",
+          transition: "opacity 0.35s ease",
         }}
       />
 
-      {/* ── Trail sparks ── */}
-      {Array.from({ length: 8 }).map((_, i) => (
-        <div
-          key={i}
-          ref={(el) => (trailsRef.current[i] = el)}
-          className="fixed top-0 left-0 rounded-full pointer-events-none will-change-transform"
-          style={{
-            width:  `${8 - i * 0.7}px`,
-            height: `${8 - i * 0.7}px`,
-            background: `rgba(88,166,255,${0.5 - i * 0.05})`,
-            filter: `blur(${1 + i * 0.5}px)`,
-            zIndex: 9992 - i,
-            transition: `transform ${0.06 + i * 0.04}s linear, opacity 0.2s`,
-          }}
-        />
-      ))}
-
-      {/* ── Magnifier lens (appears on text hover) ── */}
-      <div
-        ref={lensRef}
-        className="fixed top-0 left-0 pointer-events-none will-change-transform"
-        style={{
-          width:  LENS_SIZE,
-          height: LENS_SIZE,
-          borderRadius: "50%",
-          border: "1.5px solid rgba(88,166,255,0.5)",
-          background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.04) 0%, rgba(88,166,255,0.03) 60%, transparent 100%)",
-          backdropFilter: "blur(0.5px) brightness(1.08) contrast(1.05)",
-          WebkitBackdropFilter: "blur(0.5px) brightness(1.08) contrast(1.05)",
-          boxShadow: "inset 0 0 30px rgba(88,166,255,0.06), 0 0 20px rgba(88,166,255,0.08), 0 0 60px rgba(88,166,255,0.04)",
-          zIndex: 9995,
-          transition: "opacity 0.2s, transform 0.2s cubic-bezier(0.34,1.56,0.64,1)",
-        }}
-      >
-        {/* Lens glare highlight */}
-        <div style={{
-          position: "absolute",
-          top: "12%", left: "18%",
-          width: "30%", height: "14%",
-          borderRadius: "50%",
-          background: "rgba(255,255,255,0.12)",
-          filter: "blur(3px)",
-          transform: "rotate(-30deg)",
-        }} />
-        {/* Lens cross-hair center dot */}
-        <div style={{
-          position: "absolute",
-          top: "50%", left: "50%",
-          width: 4, height: 4,
-          transform: "translate(-50%,-50%)",
-          borderRadius: "50%",
-          background: "rgba(88,166,255,0.6)",
-          boxShadow: "0 0 6px rgba(88,166,255,0.8)",
-        }} />
-      </div>
-
-      {/* ── Inner precision dot ── */}
+      {/* ── Precision dot (default state) ── */}
       <div
         ref={dotRef}
-        className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] will-change-transform mix-blend-difference"
-        style={{ width: 8, height: 8, background: "white", transition: "opacity 0.15s" }}
+        className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] will-change-transform"
+        style={{
+          width:  8,
+          height: 8,
+          background: "radial-gradient(circle, #d8b4fe 0%, #818cf8 100%)",
+          boxShadow: "0 0 8px rgba(167,139,250,0.8)",
+          transition: "opacity 0.15s ease",
+        }}
       />
 
-      {/* ── Outer lagging ring ── */}
+      {/* ── Outer gradient ring (default state) ── */}
       <div
         ref={ringRef}
         className="fixed top-0 left-0 rounded-full pointer-events-none z-[9998] will-change-transform"
         style={{
-          width: 40, height: 40,
-          border: "1px solid rgba(88,166,255,0.6)",
-          transition: "width 0.25s, height 0.25s, border-color 0.25s, background 0.25s, opacity 0.15s",
+          width:  40,
+          height: 40,
+          border: "1.5px solid rgba(120,80,255,0.7)",
+          background: "transparent",
+          boxShadow: "0 0 12px rgba(120,80,255,0.2), inset 0 0 8px rgba(120,80,255,0.05)",
+          transition:
+            "width 0.3s cubic-bezier(0.34,1.56,0.64,1), height 0.3s cubic-bezier(0.34,1.56,0.64,1), border-color 0.25s, background 0.25s, opacity 0.2s",
+        }}
+      />
+
+      {/* ── White inversion blob (text-hover state only) ── */}
+      <div
+        ref={blobRef}
+        className="fixed top-0 left-0 pointer-events-none z-[9999] will-change-transform rounded-full mix-blend-difference"
+        style={{
+          width:  70,
+          height: 70,
+          background: "white",
+          transition:
+            "opacity 0.25s cubic-bezier(0.34,1.56,0.64,1), transform 0.25s cubic-bezier(0.34,1.56,0.64,1)",
         }}
       />
     </>

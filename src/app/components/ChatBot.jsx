@@ -137,9 +137,9 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end pointer-events-none">
       {isOpen && (
-        <div className="w-80 sm:w-96 h-[500px] max-h-[80vh] bg-[#0d1117] border border-[#30363d] rounded-2xl shadow-2xl mb-4 flex flex-col overflow-hidden animate-fade-in-up pointer-events-auto">
+        <div className="w-[calc(100vw-2rem)] sm:w-80 md:w-96 max-h-[75vh] sm:max-h-[80vh] bg-[#0d1117] border border-[#30363d] rounded-2xl shadow-2xl mb-4 flex flex-col overflow-hidden animate-fade-in-up pointer-events-auto" style={{ height: 'min(500px, 75vh)' }}>
           {/* Header */}
           <div className="bg-[#010409] border-b border-[#30363d] p-4 flex justify-between items-center text-white">
             <div className="flex items-center gap-2">
@@ -236,9 +236,9 @@ const ChatBot = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="w-14 h-14 bg-blue-600 hover:bg-blue-500 text-white rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-50 animate-bounce-subtle pointer-events-auto"
+          className="w-12 h-12 sm:w-14 sm:h-14 bg-blue-600 hover:bg-blue-500 text-white rounded-full shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-50 animate-bounce-subtle pointer-events-auto"
         >
-          <i className="fas fa-comment-dots text-2xl"></i>
+          <i className="fas fa-comment-dots text-xl sm:text-2xl"></i>
         </button>
       )}
     </div>

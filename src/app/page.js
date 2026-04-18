@@ -50,6 +50,12 @@ export default function Home() {
             
             @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
             .animate-cursor-blink { animation: blink 1s step-end infinite; }
+
+            @keyframes fade-in-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+            .animate-fade-in-up { animation: fade-in-up 0.3s ease-out forwards; }
+
+            @keyframes bounce-subtle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+            .animate-bounce-subtle { animation: bounce-subtle 2.5s ease-in-out infinite; }
           `}} />
 
           {/* Ambient Background Blobs */}

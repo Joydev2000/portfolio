@@ -51,6 +51,14 @@ body {
   transition: clip-path 0s;
   pointer-events: none;
   white-space: nowrap;
+
+/* On mobile: allow wrapping so text doesn't overflow */
+@media (max-width: 767px) {
+  .lens-text-bright {
+    white-space: normal;
+    clip-path: circle(50px at var(--lx, -200px) var(--ly, -200px));
+  }
+}
 }
 
 /* Gradient variant for second line */

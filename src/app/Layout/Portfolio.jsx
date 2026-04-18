@@ -20,7 +20,7 @@ const Portfolio = () => {
     <section id="portfolio" className="py-24 bg-[#0b1120] relative overflow-hidden z-10 border-y border-white/5">
       <ScrollReveal className="max-w-7xl mx-auto px-4 mb-16 text-center">
           <h2 className="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">Portfolio</h2>
-          <h3 className="text-3xl md:text-4xl font-display font-bold text-white tracking-tight mb-6">Featured Projects</h3>
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white tracking-tight mb-6">Featured Projects</h3>
 
       </ScrollReveal>
 
@@ -45,8 +45,8 @@ const Portfolio = () => {
 
       {/* Marquee Row 1 */}
       <div className="w-full overflow-hidden mb-8 relative flex">
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#0b1120] to-transparent z-10"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#0b1120] to-transparent z-10"></div>
+          <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-[#0b1120] to-transparent z-10"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-[#0b1120] to-transparent z-10"></div>
           <div className="flex w-max animate-scroll-left hover:pause">
               {[...projectsList, ...projectsList, ...projectsList].map((p, idx) => (
                   <div key={idx} className="flex-shrink-0 mx-3 w-[280px] glass-card p-5 rounded-xl hover:border-blue-500/50 transition-all cursor-pointer group">
@@ -59,8 +59,8 @@ const Portfolio = () => {
       
       {/* Marquee Row 2 */}
       <div className="w-full overflow-hidden relative flex">
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#0b1120] to-transparent z-10"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#0b1120] to-transparent z-10"></div>
+          <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-[#0b1120] to-transparent z-10"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-[#0b1120] to-transparent z-10"></div>
           <div className="flex w-max animate-scroll-right hover:pause">
               {[...projectsList].reverse().concat([...projectsList].reverse(), [...projectsList].reverse()).map((p, idx) => (
                   <div key={idx} className="flex-shrink-0 mx-3 w-[280px] glass-card p-5 rounded-xl hover:border-blue-500/50 transition-all cursor-pointer group">
