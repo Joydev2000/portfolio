@@ -3,16 +3,6 @@ import { ScrollReveal, StaggerContainer, StaggerItem } from "../components/Scrol
 const Credentials = () => {
   const educationList = [
     {
-      degree: "Graduation (Bachelor's Degree)",
-      institution: "Netaji Subhas Open University",
-      period: "2022 – 2026",
-      status: "Currently Pursuing",
-      statusColor: "emerald",
-      icon: "fas fa-graduation-cap",
-      description: "Pursuing higher education while actively developing commercial WordPress websites, custom themes, and modern frontend web applications.",
-      highlights: ["Higher Studies", "Open University", "Academic & Tech Balance"],
-    },
-    {
       degree: "Diploma in Graphic & Web Development",
       institution: "Arena Animation, Barasat",
       period: "Completed",
@@ -22,6 +12,16 @@ const Credentials = () => {
       isFeatured: true,
       description: "Comprehensive industry diploma covering UI/UX principles, modern graphic design software (Photoshop, Illustrator, XD), semantic HTML, CSS, JavaScript, and responsive web architecture.",
       highlights: ["UI/UX Design", "Graphic Toolkits", "Web Architecture"],
+    },
+    {
+      degree: "Graduation (Bachelor's Degree)",
+      institution: "Netaji Subhas Open University",
+      period: "2022 – 2026",
+      status: "Currently Pursuing",
+      statusColor: "emerald",
+      icon: "fas fa-graduation-cap",
+      description: "Pursuing higher education while actively developing commercial WordPress websites, custom themes, and modern frontend web applications.",
+      highlights: ["Higher Studies", "Open University", "Academic & Tech Balance"],
     },
     {
       degree: "Higher Secondary (10+2)",
@@ -372,33 +372,45 @@ const Credentials = () => {
             </div>
           </div>
 
-          {/* Column-wise 4-Card Grid on Desktop, 2 on Tablet, 1 on Mobile */}
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {/* 2-Row Grid: 2 columns on desktop/tablet, 1 on mobile */}
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {educationList.map((edu, idx) => (
               <StaggerItem key={idx} className="h-full">
                 <div
-                  className={`h-full p-5 rounded-2xl transition-all duration-300 group flex flex-col justify-between ${
+                  className={`relative overflow-hidden h-full p-6 rounded-2xl transition-all duration-300 group flex flex-col justify-between ${
                     edu.isFeatured
-                      ? "bg-gradient-to-br from-purple-500/[0.08] via-purple-900/[0.04] to-[#0d1117] border border-purple-500/30 shadow-lg shadow-purple-500/5 hover:border-purple-400/50 hover:scale-[1.01]"
-                      : "bg-[#0d1117]/80 backdrop-blur-md border border-white/10 hover:border-blue-500/30 hover:bg-[#111722] hover:scale-[1.01]"
+                      ? "bg-gradient-to-br from-purple-950/40 via-[#101424] to-[#0d1117] border-2 border-purple-500/50 shadow-xl shadow-purple-900/20 hover:border-purple-400 hover:shadow-purple-500/25 hover:-translate-y-1"
+                      : "bg-[#0d1117]/80 backdrop-blur-md border border-white/10 hover:border-blue-500/30 hover:bg-[#111722] hover:-translate-y-1"
                   }`}
                 >
+                  {/* Glowing Top Accent Line for the Featured Professional Diploma */}
+                  {edu.isFeatured && (
+                    <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 shadow-[0_0_12px_rgba(168,85,247,0.9)]" />
+                  )}
+
                   <div>
                     {/* Header with Icon and Status */}
-                    <div className="flex items-center justify-between gap-2 mb-4">
-                      <div
-                        className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm border ${
-                          edu.isFeatured
-                            ? "bg-purple-500/15 text-purple-400 border-purple-500/30"
-                            : "bg-blue-500/10 text-blue-400 border-blue-500/20"
-                        }`}
-                      >
-                        <i className={edu.icon}></i>
+                    <div className="flex items-center justify-between gap-3 mb-4">
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={`w-10 h-10 rounded-xl flex items-center justify-center text-base border transition-transform duration-300 group-hover:scale-105 ${
+                            edu.isFeatured
+                              ? "bg-purple-500/20 text-purple-300 border-purple-500/40 shadow-md shadow-purple-500/20"
+                              : "bg-blue-500/10 text-blue-400 border-blue-500/20"
+                          }`}
+                        >
+                          <i className={edu.icon}></i>
+                        </div>
+                        {edu.isFeatured && (
+                          <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-purple-300 bg-purple-500/15 border border-purple-500/30 px-2.5 py-0.5 rounded-full shadow-sm">
+                            <i className="fas fa-star text-[9px] text-amber-300"></i> Featured Credential
+                          </span>
+                        )}
                       </div>
                       <span
-                        className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold tracking-wide border shrink-0 ${
+                        className={`px-3 py-1 rounded-full text-xs font-semibold tracking-wide border shrink-0 ${
                           edu.isFeatured
-                            ? "bg-purple-500/15 text-purple-300 border-purple-500/30"
+                            ? "bg-gradient-to-r from-purple-500/25 to-pink-500/25 text-purple-200 border-purple-500/40 shadow-sm"
                             : edu.period.includes("2022")
                             ? "bg-blue-500/15 text-blue-300 border-blue-500/30"
                             : "bg-white/5 text-slate-300 border-white/10"
@@ -408,27 +420,41 @@ const Credentials = () => {
                       </span>
                     </div>
 
-                    <h4 className="text-base font-bold text-white group-hover:text-blue-300 transition-colors leading-snug mb-2">
+                    <h4
+                      className={`text-lg font-bold transition-colors leading-snug mb-2 ${
+                        edu.isFeatured
+                          ? "text-white group-hover:text-purple-300"
+                          : "text-white group-hover:text-blue-300"
+                      }`}
+                    >
                       {edu.degree}
                     </h4>
 
-                    <div className="text-xs font-medium text-blue-400 mb-3 flex items-center gap-1.5 flex-wrap">
+                    <div
+                      className={`text-xs font-medium mb-3 flex items-center gap-2 flex-wrap ${
+                        edu.isFeatured ? "text-purple-400" : "text-blue-400"
+                      }`}
+                    >
                       <i className="fas fa-university text-[11px] opacity-75"></i>
-                      <span>{edu.institution}</span>
+                      <span className="font-semibold">{edu.institution}</span>
                       <span className="text-slate-500">·</span>
                       <span className="text-slate-400 font-mono text-[11px]">{edu.period}</span>
                     </div>
 
-                    <p className="text-slate-400 text-xs leading-relaxed mb-4 font-light">
+                    <p className="text-slate-300/90 text-sm leading-relaxed mb-4 font-light">
                       {edu.description}
                     </p>
                   </div>
 
-                  <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/5">
+                  <div className="flex flex-wrap gap-2 pt-3 border-t border-white/5">
                     {edu.highlights.map((tag, tIdx) => (
                       <span
                         key={tIdx}
-                        className="text-[10px] px-2 py-0.5 rounded-md bg-white/5 text-slate-300 border border-white/5 font-mono"
+                        className={`text-[11px] px-2.5 py-1 rounded-md font-mono ${
+                          edu.isFeatured
+                            ? "bg-purple-500/15 text-purple-200 border border-purple-500/30"
+                            : "bg-white/5 text-slate-300 border border-white/5"
+                        }`}
                       >
                         {tag}
                       </span>
