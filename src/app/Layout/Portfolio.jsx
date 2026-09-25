@@ -7,11 +7,12 @@ const Portfolio = () => {
   const [spotlightProject, setSpotlightProject] = useState(null);
   const [isBrainstorming, setIsBrainstorming] = useState(false);
   const [projectsList, setProjectsList] = useState([
-    { title: "Finance Dashboard", tech: "React / D3" },
-    { title: "E-Commerce", tech: "Next.js" },
-    { title: "AI Wrapper", tech: "Python" },
-    { title: "Chat App", tech: "Socket.io" },
-    { title: "3D Portfolio", tech: "Three.js" }
+    { title: "Custom WordPress Theme", tech: "WordPress / Custom Themes", icon: "fab fa-wordpress" },
+    { title: "Elementor Landing Page", tech: "Elementor / WordPress", icon: "fas fa-layer-group" },
+    { title: "Semantic HTML5 Website", tech: "HTML Developer / CSS3", icon: "fab fa-html5" },
+    { title: "React Frontend App", tech: "React.js / Frontend", icon: "fab fa-react" },
+    { title: "Next.js Web Experience", tech: "Next.js / Frontend", icon: "fas fa-bolt" },
+    { title: "Custom Theme Integration", tech: "Core PHP / WordPress", icon: "fas fa-code" }
   ]);
 
 
@@ -50,7 +51,9 @@ const Portfolio = () => {
           <div className="flex w-max animate-scroll-left hover:pause">
               {[...projectsList, ...projectsList, ...projectsList].map((p, idx) => (
                   <div key={idx} className="flex-shrink-0 mx-3 w-[280px] glass-card p-5 rounded-xl hover:border-blue-500/50 transition-all cursor-pointer group">
-                      <div className="h-32 bg-[#0f172a] mb-4 rounded-lg flex items-center justify-center relative overflow-hidden"><i className="fas fa-layer-group text-3xl text-slate-700 group-hover:text-blue-500 transition-colors"></i></div>
+                      <div className="h-32 bg-[#0f172a] mb-4 rounded-lg flex items-center justify-center relative overflow-hidden">
+                        <i className={`${p.icon || "fas fa-layer-group"} text-4xl text-slate-600 group-hover:text-blue-400 group-hover:scale-110 transition-all duration-300`}></i>
+                      </div>
                       <div className="flex justify-between items-end"><h3 className="font-bold text-white text-sm tracking-wide">{p.title}</h3><span className="text-xs font-medium text-blue-400 bg-blue-500/10 px-2 py-1 rounded">{p.tech}</span></div>
                   </div>
               ))}
@@ -64,7 +67,9 @@ const Portfolio = () => {
           <div className="flex w-max animate-scroll-right hover:pause">
               {[...projectsList].reverse().concat([...projectsList].reverse(), [...projectsList].reverse()).map((p, idx) => (
                   <div key={idx} className="flex-shrink-0 mx-3 w-[280px] glass-card p-5 rounded-xl hover:border-blue-500/50 transition-all cursor-pointer group">
-                      <div className="h-32 bg-[#0f172a] mb-4 rounded-lg flex items-center justify-center relative overflow-hidden"><i className="fas fa-layer-group text-3xl text-slate-700 group-hover:text-blue-500 transition-colors"></i></div>
+                      <div className="h-32 bg-[#0f172a] mb-4 rounded-lg flex items-center justify-center relative overflow-hidden">
+                        <i className={`${p.icon || "fas fa-layer-group"} text-4xl text-slate-600 group-hover:text-purple-400 group-hover:scale-110 transition-all duration-300`}></i>
+                      </div>
                       <div className="flex justify-between items-end"><h3 className="font-bold text-white text-sm tracking-wide">{p.title}</h3><span className="text-xs font-medium text-blue-400 bg-blue-500/10 px-2 py-1 rounded">{p.tech}</span></div>
                   </div>
               ))}

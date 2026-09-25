@@ -15,15 +15,20 @@ const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
   const [editorCode, setEditorCode] = useState(`
-<span class="token-keyword">import</span> React <span class="token-keyword">from</span> <span class="token-string">'react'</span>;
+<span class="token-keyword">const</span> <span class="token-function">joydevHalder</span> = {
+  role: <span class="token-string">"WordPress &amp; Frontend Developer"</span>,
+  specialties: [
+    <span class="token-string">"Custom Theme Development"</span>,
+    <span class="token-string">"Elementor Page Building"</span>,
+    <span class="token-string">"HTML Developer / Semantic UI"</span>,
+    <span class="token-string">"Frontend (React &amp; Next.js)"</span>
+  ],
+  company: <span class="token-string">"Web Circle Technology"</span>,
+  linkedIn: <span class="token-string">"https://www.linkedin.com/in/joydev-halder/"</span>
+};
 
 <span class="token-keyword">export default function</span> <span class="token-function">App</span>() {
-  <span class="token-keyword">return</span> (
-    <span class="token-operator">&lt;</span>div className=<span class="token-string">"future"</span><span class="token-operator">&gt;</span>
-       <span class="token-comment">// Ready to build immersive experiences</span>
-       <span class="token-function">Hello</span> World
-    <span class="token-operator">&lt;/</span>div<span class="token-operator">&gt;</span>
-  );
+  <span class="token-keyword">return</span> <span class="token-operator">&lt;</span><span class="token-class">CustomWordPressTheme</span> stack={[<span class="token-string">"WordPress"</span>, <span class="token-string">"Elementor"</span>, <span class="token-string">"HTML"</span>, <span class="token-string">"React"</span>, <span class="token-string">"Next.js"</span>]} /<span class="token-operator">&gt;</span>;
 }`);
 
   const [terminalHistory, setTerminalHistory] = useState([
@@ -74,9 +79,9 @@ const Hero = () => {
       ease: "power2.inOut",
     }, "+=0.5");
 
-    // Editor slides up FROM 60vh to center
+    // Editor slides up FROM 72vh to center (20vh)
     tl.to(editorContainerRef.current, {
-      y: "-45vh",
+      y: "-52vh",
       scale: 1,
       opacity: 1,
       duration: 3,
@@ -314,32 +319,42 @@ const Hero = () => {
   // ─────────────────────────────────────────────────────────────
   if (isMobile) {
     return (
-      <section id="hero" className="relative w-full min-h-screen bg-[#010409] flex flex-col items-center justify-start overflow-hidden pt-20 pb-8 px-4">
+      <section id="hero" className="relative w-full min-h-screen bg-[#010409] flex flex-col items-center justify-start overflow-hidden pt-36 pb-8 px-4">
         <div className="absolute inset-0 pointer-events-none z-0">
           <ParticleCanvas />
         </div>
 
         {/* Hero text */}
         <div className="relative z-20 w-full max-w-lg mx-auto flex flex-col items-center text-center mt-6 mb-8">
-          <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium mb-6">
+          <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mr-2 animate-pulse"></span>
-            Transforming ideas into digital products
+            WordPress Developer · Custom Themes · Elementor · Frontend
           </div>
 
-          <h1 className="text-4xl xs:text-5xl font-display font-medium tracking-tight leading-[1.2] select-none block mb-5">
+          <h1 className="text-4xl xs:text-5xl font-display font-medium tracking-tight leading-[1.2] select-none block mb-4">
             <span className="lens-text-wrap">
-              <span className="lens-text-base reveal-text block" style={{ backgroundPosition: "0% 0" }}>Full-Stack Engineering &</span>
-              <span className="lens-text-bright reveal-text block" aria-hidden="true">Full-Stack Engineering &</span>
+              <span className="lens-text-base reveal-text block" style={{ backgroundPosition: "0% 0" }}>WordPress & Custom Themes</span>
+              <span className="lens-text-bright reveal-text block" aria-hidden="true">WordPress & Custom Themes</span>
             </span>
             <span className="lens-text-wrap">
-              <span className="lens-text-base reveal-text block font-serif italic pb-2 pr-2" style={{ color: "rgba(139,92,246,0.4)", WebkitTextFillColor: "rgba(139,92,246,0.4)", backgroundPosition: "0% 0" }}>AI Software Development</span>
-              <span className="lens-text-bright gradient block font-serif italic pb-2 pr-2" aria-hidden="true">AI Software Development</span>
+              <span className="lens-text-base reveal-text block font-serif italic pb-2 pr-2" style={{ color: "rgba(139,92,246,0.4)", WebkitTextFillColor: "rgba(139,92,246,0.4)", backgroundPosition: "0% 0" }}>& Frontend (React · Next.js)</span>
+              <span className="lens-text-bright gradient block font-serif italic pb-2 pr-2" aria-hidden="true">& Frontend (React · Next.js)</span>
             </span>
           </h1>
 
-          <p className="text-base text-slate-400 max-w-sm mx-auto font-light leading-relaxed">
-            Crafting modern, scalable interfaces where design meets cutting-edge engineering.
+          <p className="text-sm sm:text-base text-slate-400 max-w-sm mx-auto font-light leading-relaxed mb-4">
+            Custom theme development, Elementor page building, semantic HTML development, and modern Frontend engineering with React &amp; Next.js.
           </p>
+
+          <a
+            href="https://www.linkedin.com/in/joydev-halder/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0077b5]/15 hover:bg-[#0077b5]/25 border border-[#0077b5]/40 text-[#70b5f9] text-xs font-medium transition-all"
+          >
+            <i className="fab fa-linkedin text-sm"></i>
+            <span>linkedin.com/in/joydev-halder/</span>
+          </a>
         </div>
 
         {/* Editor */}
@@ -359,36 +374,49 @@ const Hero = () => {
         <ParticleCanvas />
       </div>
 
-      {/* Scene 1: Text — positioned in the upper portion of viewport */}
-      <div ref={titleContainerRef} className="absolute z-20 w-full max-w-7xl mx-auto px-6 flex flex-col items-center text-center" style={{ top: "14%" }}>
-          <div className="inline-flex items-center px-4 py-1.5 rounded-full min-h-[36px] bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium mb-8">
+      {/* Scene 1: Text — positioned below the fixed navbar with generous breathing room */}
+      <div ref={titleContainerRef} className="absolute z-20 w-full max-w-7xl mx-auto px-6 flex flex-col items-center text-center" style={{ top: "clamp(9.5rem, 20vh, 12.5rem)" }}>
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full min-h-[36px] bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-medium mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mr-2 animate-pulse"></span>
-            Transforming ideas into high-end digital products
+            WordPress Developer · Custom Theme Development · Elementor · HTML Developer · Frontend (React &amp; Next.js)
           </div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-[80px] font-display font-medium tracking-tight leading-[1.15] select-none block mb-6">
+          <h1 className="text-5xl md:text-7xl lg:text-[74px] font-display font-medium tracking-tight leading-[1.15] select-none block mb-6">
             {/* Line 1 */}
             <span className="lens-text-wrap">
-              <span className="lens-text-base reveal-text block">Full-Stack Engineering &</span>
-              <span className="lens-text-bright reveal-text block" aria-hidden="true">Full-Stack Engineering &</span>
+              <span className="lens-text-base reveal-text block">WordPress & Custom Themes</span>
+              <span className="lens-text-bright reveal-text block" aria-hidden="true">WordPress & Custom Themes</span>
             </span>
             {/* Line 2 — gradient version */}
             <span className="lens-text-wrap">
-              <span className="lens-text-base reveal-text block font-serif italic pb-2 pr-4" style={{ color: "rgba(139,92,246,0.4)", WebkitTextFillColor: "rgba(139,92,246,0.4)" }}>AI Software Development</span>
-              <span className="lens-text-bright gradient block font-serif italic pb-2 pr-4" aria-hidden="true">AI Software Development</span>
+              <span className="lens-text-base reveal-text block font-serif italic pb-2 pr-4" style={{ color: "rgba(139,92,246,0.4)", WebkitTextFillColor: "rgba(139,92,246,0.4)" }}>& Frontend (React / Next.js)</span>
+              <span className="lens-text-bright gradient block font-serif italic pb-2 pr-4" aria-hidden="true">& Frontend (React / Next.js)</span>
             </span>
           </h1>
 
-          <div className="text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed select-none">
+          <div className="text-base md:text-lg max-w-3xl mx-auto font-light leading-relaxed select-none mb-6">
             <span className="lens-text-wrap inline">
-              <span className="lens-text-base reveal-text inline">Build immersive experiences without the complexity. Crafting modern, scalable interfaces where design meets cutting-edge engineering.</span>
-              <span className="lens-text-bright inline" aria-hidden="true" style={{ whiteSpace: "normal" }}>Build immersive experiences without the complexity. Crafting modern, scalable interfaces where design meets cutting-edge engineering.</span>
+              <span className="lens-text-base reveal-text inline">Specialized in custom WordPress development, custom theme development, Elementor page building, semantic HTML development, and modern Frontend web applications with React &amp; Next.js.</span>
+              <span className="lens-text-bright inline" aria-hidden="true" style={{ whiteSpace: "normal" }}>Specialized in custom WordPress development, custom theme development, Elementor page building, semantic HTML development, and modern Frontend web applications with React &amp; Next.js.</span>
             </span>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <a
+              href="https://www.linkedin.com/in/joydev-halder/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#0077b5]/15 hover:bg-[#0077b5]/25 border border-[#0077b5]/40 text-[#70b5f9] text-xs font-semibold tracking-wide transition-all shadow-lg shadow-[#0077b5]/10 hover:scale-105"
+            >
+              <i className="fab fa-linkedin text-sm"></i>
+              <span>Connect on LinkedIn</span>
+              <i className="fas fa-arrow-up-right-from-square text-[10px] ml-1 opacity-70"></i>
+            </a>
           </div>
       </div>
 
-      {/* Scene 2: Editor — starts at 60vh */}
-      <div ref={editorContainerRef} className="absolute z-30 w-full max-w-6xl px-4 pointer-events-auto" style={{ top: "60vh" }}>
+      {/* Scene 2: Editor — starts at 72vh */}
+      <div ref={editorContainerRef} className="absolute z-30 w-full max-w-6xl px-4 pointer-events-auto" style={{ top: "72vh" }}>
         <EditorPanel />
       </div>
     </section>

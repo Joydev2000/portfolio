@@ -24,10 +24,32 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="hidden md:flex items-center space-x-6">
-            <a href="#login" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">Login</a>
-            <a href="#contact" className="px-5 py-2.5 bg-white text-black hover:bg-gray-200 rounded-full text-sm font-bold transition-all shadow-lg shadow-white/10">
-                Sign Up
+          <div className="hidden md:flex items-center space-x-3">
+            <a
+              href="https://www.linkedin.com/in/joydev-halder/"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Joydev Halder LinkedIn"
+              className="text-sm font-medium text-blue-400 hover:text-white transition-colors flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#0077b5]/30 hover:border-[#0077b5]/60 bg-[#0077b5]/10"
+            >
+              <i className="fab fa-linkedin text-sm text-[#70b5f9]"></i>
+              <span className="text-xs font-semibold">LinkedIn</span>
+            </a>
+            <a
+              href="/JoydevHalder_Cv.pdf"
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-medium text-gray-300 hover:text-white transition-colors flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/10 hover:border-white/20 bg-white/5"
+            >
+              <i className="fas fa-file-pdf text-red-400"></i>
+              <span>CV</span>
+            </a>
+            <a
+              href="#contact"
+              className="px-5 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-full text-sm font-semibold transition-all shadow-lg shadow-blue-500/20"
+            >
+              Hire Me
             </a>
           </div>
 
@@ -40,13 +62,32 @@ const Header = () => {
       </div>
       
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-[#010409] border-t border-[#30363d]">
+        <div className="md:hidden bg-[#010409]/95 backdrop-blur-xl border-t border-[#30363d]">
           <div className="px-4 pt-4 pb-6 space-y-2">
             <a href="#hero" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-white font-medium">Home</a>
             <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-gray-400 hover:text-white">About</a>
-            <a href="#credentials" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-gray-400 hover:text-white">Credentials</a>
+            <a href="#portfolio" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-gray-400 hover:text-white">Portfolio</a>
+            <a href="#credentials" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-gray-400 hover:text-white">Credentials & Skills</a>
             <a href="#timeline" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-gray-400 hover:text-white">Timeline</a>
-            <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 text-blue-400 font-semibold">Contact Me</a>
+            <div className="pt-2 flex gap-3">
+              <a
+                href="/JoydevHalder_Cv.pdf"
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex-1 text-center py-2 px-4 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-medium flex items-center justify-center gap-2"
+              >
+                <i className="fas fa-file-pdf text-red-400"></i> Download CV
+              </a>
+              <a
+                href="#contact"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex-1 text-center py-2 px-4 rounded-xl bg-blue-600 text-white text-sm font-semibold flex items-center justify-center"
+              >
+                Hire Me
+              </a>
+            </div>
           </div>
         </div>
       )}

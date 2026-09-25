@@ -12,8 +12,8 @@ if (typeof window !== "undefined") {
 }
 
 export const metadata = {
-  title: "Joydev Halder | Frontend Developer",
-  description: "Joydev Halder | Frontend Developer from kolkta",
+  title: "Joydev Halder | WordPress Developer · Custom Themes · Elementor · HTML Developer · Frontend (React / Next.js)",
+  description: "Joydev Halder - WordPress Developer specializing in custom theme development, Elementor page building, semantic HTML development, and modern Frontend engineering with React & Next.js. LinkedIn: https://www.linkedin.com/in/joydev-halder/",
 };
 
 export default function RootLayout({ children }) {

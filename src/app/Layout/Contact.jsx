@@ -116,13 +116,78 @@ Draft message: "${form.message}"`;
             className="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 rounded-full blur-[80px] pointer-events-none"
             delay={0.2}
           ></ScrollReveal>
-          <StaggerItem className="text-center mb-10 relative z-10">
+          <StaggerItem className="text-center mb-8 relative z-10">
             <h2 className="text-sm font-bold text-blue-400 uppercase tracking-widest mb-3">
               Get in Touch
             </h2>
-            <h3 className="text-3xl font-display font-bold text-white tracking-tight">
+            <h3 className="text-3xl sm:text-4xl font-display font-bold text-white tracking-tight mb-4">
               Let&apos;s Work Together
             </h3>
+            <p className="text-slate-400 text-sm max-w-lg mx-auto mb-6">
+              Have a project in mind, need a responsive website, or looking to hire a frontend web developer? Reach out directly or send a message below.
+            </p>
+
+            {/* Direct Contact Pills */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 max-w-2xl mx-auto mb-8 text-left">
+              <a
+                href="mailto:joydevsuvo2202@gmail.com"
+                className="glass-card p-3 rounded-xl border border-white/5 hover:border-blue-500/30 transition-all flex items-center gap-3 group"
+              >
+                <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                  <i className="fas fa-envelope text-xs"></i>
+                </div>
+                <div className="overflow-hidden">
+                  <div className="text-[10px] text-slate-400 font-medium">Email</div>
+                  <div className="text-xs text-white font-semibold truncate group-hover:text-blue-300 transition-colors">
+                    joydevsuvo2202@gmail.com
+                  </div>
+                </div>
+              </a>
+
+              <a
+                href="tel:+917478362081"
+                className="glass-card p-3 rounded-xl border border-white/5 hover:border-green-500/30 transition-all flex items-center gap-3 group"
+              >
+                <div className="w-8 h-8 rounded-lg bg-green-500/10 text-green-400 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                  <i className="fab fa-whatsapp text-xs"></i>
+                </div>
+                <div>
+                  <div className="text-[10px] text-slate-400 font-medium">WhatsApp / Call</div>
+                  <div className="text-xs text-white font-semibold group-hover:text-green-300 transition-colors">
+                    +91 7478362081
+                  </div>
+                </div>
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/joydev-halder/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card p-3 rounded-xl border border-[#0077b5]/30 hover:border-[#0077b5]/60 bg-[#0077b5]/10 transition-all flex items-center gap-3 group"
+              >
+                <div className="w-8 h-8 rounded-lg bg-[#0077b5]/20 text-[#70b5f9] flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                  <i className="fab fa-linkedin text-xs"></i>
+                </div>
+                <div className="overflow-hidden">
+                  <div className="text-[10px] text-slate-400 font-medium">LinkedIn</div>
+                  <div className="text-xs text-white font-semibold truncate group-hover:text-[#70b5f9] transition-colors">
+                    joydev-halder
+                  </div>
+                </div>
+              </a>
+
+              <div className="glass-card p-3 rounded-xl border border-white/5 flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center shrink-0">
+                  <i className="fas fa-location-dot text-xs"></i>
+                </div>
+                <div>
+                  <div className="text-[10px] text-slate-400 font-medium">Location</div>
+                  <div className="text-xs text-white font-semibold">
+                    Bongaon, 743249
+                  </div>
+                </div>
+              </div>
+            </div>
           </StaggerItem>
 
           <form onSubmit={handleSubmit} noValidate className="space-y-6 relative z-10">

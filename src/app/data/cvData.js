@@ -1,58 +1,71 @@
 export const cvData = `
 PROFILE:
 - Name: Joydev Halder
-- Role: Frontend Developer
-- Location: Bongaon, West Bengal, India
+- Role: WordPress Developer & Frontend Developer
+- Specialization: WordPress Developer, Custom Theme Development, Elementor, HTML Developer, Frontend, React, Next.js
+- Location: Bongaon, 743249, West Bengal, India
 - Phone: +917478362081
 - Email: joydevsuvo2202@gmail.com
-- LinkedIn: https://www.linkedin.com/in/joydev-halder
+- Website: www.joydev.com
+- LinkedIn: https://www.linkedin.com/in/joydev-halder/
 
 SUMMARY:
-Frontend Developer with practical experience in building responsive and user-friendly web applications. Skilled in modern frontend technologies with a strong focus on clean UI, performance, and usability. Passionate about converting UI designs into high-quality, efficient code.
+WordPress Developer and Frontend Engineer specializing in custom theme development, Elementor page building, semantic HTML development, and modern Frontend applications using React and Next.js. Passionate about translating UI designs into clean, fast, and optimized web experiences.
 
 CURRENT STATUS:
-- Current Role: Web Developer
+- Current Role: Web Developer (WordPress & Frontend)
 - Company: Web Circle Technology
-- Start Date: October 2024
-- Experience Level: Junior Frontend Developer
+- Start Date: November 2024
+- Experience Level: WordPress Developer / Frontend Developer
 - Notice Period: Within 30 days
 - Current Salary: ₹14,000/month
 - Expected Salary: ₹20,000/month
 
-EXPERIENCE:
-- Web Developer | Web Circle Technology (Oct 2024 – Present)
-  - Develop and customize WordPress websites
-  - Build UI components using React
-  - Create responsive layouts using HTML, CSS, and Tailwind
-  - Optimize performance and user experience
+WORK EXPERIENCE:
+- Web Developer | Web Circle Technology (November 2024 – Present)
+  - Build and customize WordPress websites and Elementor layouts
+  - Develop frontend UI components using HTML5, CSS3, JavaScript, and React
+  - Create pixel-perfect responsive layouts and optimize page loading performance
+  - Ensure cross-browser compatibility and usability
 
-- Junior UI/UX Designer | TimdTech (Apr 2024 – Oct 2024)
-  - Designed UI/UX for web applications
-  - Created prototypes using Figma and Adobe XD
-  - Collaborated with developers for implementation
-  - Worked with React for UI improvements
+- Junior UI/UX Designer | TimdTech (April 22, 2024 – October 2024)
+  - Collaborate with teams to design user interfaces and experiences
+  - Work with React and HTML/CSS for frontend implementations
+  - Assist in creating prototypes and fix design bugs using Figma & Adobe XD
 
-TECHNICAL SKILLS:
-- Frontend: HTML, CSS, JavaScript, React.js, Next.js, Tailwind CSS, Bootstrap, jQuery
-- CMS: WordPress
-- Backend Basics: PHP, REST API Integration
-- Tools: Git, GitHub, VS Code
-
-DESIGN SKILLS:
-- Photoshop
-- Illustrator
-- Adobe XD
-- Figma
-- InDesign
+PROFESSIONAL QUALIFICATION:
+- Diploma in Graphic, Web Design and Web Development – Arena Animation, Barasat
 
 EDUCATION:
-- Graduation (Ongoing): Netaji Subhas Open University (2022 – 2026)
-- Diploma: Graphic, Web Design & Development – Arena Animation, Barasat
-- Higher Secondary: WBCHSE (70%) – 2018
-- Secondary: WBBSE (63%) – 2016
+- Graduation (Bachelor's Degree): Netaji Subhas Open University (2022 – 2026)
+- Higher Secondary: W.B.C.H.S.E (70%) – 2018
+- Secondary Education: W.B.B.S.E (63%) – 2016
+
+TECHNICAL & CODING SKILLS:
+- CMS & Page Builders: WordPress, Elementor
+- Frontend: HTML, HTML5, CSS, CSS3, JavaScript, React.js, Tailwind CSS, Bootstrap, jQuery, Next.js (UI)
+- Backend Basics: Core PHP
+- Version Control & Tools: Git & GitHub, VS Code
+
+SOFTWARE & DESIGN SKILLS:
+- Figma
+- Adobe Photoshop
+- Adobe Illustrator
+- Adobe XD
+- Adobe InDesign
+- VS Code
+
+PERSONAL INFO:
+- Nationality: Indian
+- Date of Birth: 22 - 02 - 2000
+- Gender: Male
+- Marital Status: Unmarried
 
 LANGUAGES:
 - English
 - Hindi
 - Bengali
+
+HOBBIES:
+- Coding, Music, Travel, Riding, Games
 `;
