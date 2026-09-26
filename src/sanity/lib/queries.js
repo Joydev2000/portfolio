@@ -1,0 +1,20 @@
+export const PROJECTS_QUERY = `*[_type == "project"] | order(coalesce(order, 9999) asc, _createdAt desc) {
+  _id,
+  title,
+  "slug": slug.current,
+  category,
+  shortDescription,
+  fullDescription,
+  "featuredImage": coalesce(featuredImage.asset->url, ""),
+  "gallery": coalesce(gallery[].asset->url, []),
+  link,
+  githubLink,
+  tags,
+  client,
+  role,
+  year,
+  status,
+  features,
+  order,
+  isFeatured
+}`;

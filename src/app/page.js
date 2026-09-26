@@ -4,10 +4,20 @@ import Portfolio from "./Layout/Portfolio";
 import Credentials from "./Layout/Credentials";
 import Timeline from "./Layout/Timeline";
 import Contact from "./Layout/Contact";
+import { client } from "@/sanity/lib/client";
+import { PROJECTS_QUERY } from "@/sanity/lib/queries";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
+export default async function Home() {
+  let sanityProjects = [];
+  try {
+    sanityProjects = await client.fetch(PROJECTS_QUERY);
+  } catch (error) {
+    console.error("Sanity server fetch failed:", error);
+  }
 
-export default function Home() {
   return (
    <>
          <div className="bg-[#010409] text-[#c9d1d9] font-['Inter',_sans-serif] selection:bg-[#58a6ff] selection:text-white overflow-x-hidden relative min-h-screen">
@@ -65,7 +75,7 @@ export default function Home() {
           </div>
           <Hero />
           <About />
-          <Portfolio />
+          <Portfolio initialProjects={sanityProjects} />
           <Credentials />
           <Timeline />
           <Contact />
